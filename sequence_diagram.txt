@@ -1,0 +1,15 @@
+@startuml
+actor User #red
+User -> WebApp: submitText()
+WebApp -> BFService: POST /classifications
+BFService --> WebApp : 201 Accepted
+activate BFService #DarkSalmon
+BFService -> BFService : saveClassification()
+BFService -> TFService : POST
+TFService -> BFService : 201 Accepted
+deactivate BFService #DarkSalmon
+activate TFService #DarkSalmon
+TFService -> TFService : classifcation()
+TFService -> BFService : PUT /classifications/id
+deactivate TFService #DarkSalmon
+@enduml
